@@ -16,6 +16,9 @@ cargo install partialzip
 partialzip list http://yoururl/file.ipsw
 partialzip download http://yoururl/file.ipsw kernelcache.release.iphone10 kernelcache.release.iphone10
 ```
+
+Install binaries from releases going to https://github.com/marcograss/partialzip/releases
+
 ### Or from git sources:
 ```
 cargo build --release
