@@ -15,45 +15,8 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  linux:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        image:
-          - "ubuntu:18.04"        # gcc  7.5.0, clang  6.0.0, cmake 3.10.2
-          - "ubuntu:20.04"        # gcc  9.3.0, clang 10.0.0, cmake 3.16.3
-          - "ubuntu:22.04"        # gcc 12.2.0, clang 15.0.7, cmake 3.24.2
-          - "debian:buster"       # gcc  8.3.0, clang  7.0.1, cmake 3.13.4
-          - "debian:bullseye"     # gcc 10.2.1, clang 11.0.1, cmake 3.18.4
-          - "debian:bookworm"     # gcc 12.2.0, clang 15.0.6, cmake 3.25.1
-          - "debian:testing"
-          - "debian:experimental"
-          - "fedora:35"           # gcc 11.2.1, clang 13.0.0, cmake 3.22.0
-          - "fedora:36"           # gcc 12.2.1, clang 14.0.5, cmake 3.26.3
-          - "fedora:37"           # gcc 12.3.1, clang 15.0.7, cmake 3.26.4
-          - "fedora:38"           # gcc 13.0.1, clang 16.0.5, cmake 3.26.4
-    container:
-      image: ${{ matrix.image }}
-      env:
-        APT_LISTCHANGES_FRONTEND: none
-        DEBIAN_FRONTEND: noninteractive
-    steps:
-      - name: Prepare container (dnf)
-        shell: bash
-      - uses: actions/checkout@v3 # v4 does not work with Ubuntu 18.04
-      - uses: taiki-e/create-gh-release-action@v1
-        with:
-          # (optional) Path to changelog.
-          # changelog: CHANGELOG.md
-          # (required) GitHub token for creating GitHub Releases.
-          token: ${{ secrets.GITHUB_TOKEN }}
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - uses: taiki-e/install-action@cargo-hack
